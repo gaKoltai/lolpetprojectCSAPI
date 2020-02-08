@@ -28,6 +28,10 @@ namespace lolpetprojectCSAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped(typeof(ISummonerRepository), typeof(SummonerRepository));
+            services.AddScoped(typeof(IMatchHistoryRepository), typeof(MatchHistoryRepository));
+            services.AddScoped(typeof(IMatchSpecificRepository), typeof(MatchSpecificRepository));
+            services.AddScoped(typeof(IQueueStatRepository), typeof(QueueStatRepository));
+            services.AddCors();
             services.AddControllers();
         }
 
@@ -38,6 +42,8 @@ namespace lolpetprojectCSAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
 
             app.UseHttpsRedirection();
 
