@@ -2,23 +2,27 @@
 using System.Threading.Tasks;
 using lolpetprojectCSAPI.Interfaces;
 using lolpetprojectCSAPI.Models.RankingBasic;
-using lolpetprojectCSAPI.StaticUtil;
 using RestSharp;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace lolpetprojectCSAPI.RiotApiServices
+namespace lolpetprojectCSAPI.Services.RiotApiServices
 {
     public class QueueStatRepository: IQueueStatRepository
     {
 
-        private readonly string _apiKey = Util.GetApiKey();
+        private IApiKeyProvider _apiKeyProvider;
+
+        public QueueStatRepository(IApiKeyProvider apiKeyProvider)
+        {
+            _apiKeyProvider = apiKeyProvider;
+        }
         
         public async Task<QueueStat[]> GetQueueStatsAsync(string summonerId)
         {
             try
             {
                 var client = new RestClient($"https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" +
-                                            $"{summonerId}?api_key={_apiKey}");
+                                            $"{summonerId}?api_key={_apiKeyProvider.GetApiKey()}");
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = await client.ExecuteAsync(request);
 

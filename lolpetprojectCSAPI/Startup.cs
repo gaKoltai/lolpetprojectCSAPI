@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using lolpetprojectCSAPI.Interfaces;
-using lolpetprojectCSAPI.RiotApiServices;
+using lolpetprojectCSAPI.Services;
+using lolpetprojectCSAPI.Services.RiotApiServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace lolpetprojectCSAPI
             services.AddScoped(typeof(IMatchHistoryRepository), typeof(MatchHistoryRepository));
             services.AddScoped(typeof(IMatchSpecificRepository), typeof(MatchSpecificRepository));
             services.AddScoped(typeof(IQueueStatRepository), typeof(QueueStatRepository));
+            services.AddScoped(typeof(IApiKeyProvider), typeof(ApiKeyProvider));
             services.AddCors();
             services.AddControllers();
         }

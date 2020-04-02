@@ -2,24 +2,28 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using lolpetprojectCSAPI.Interfaces;
-using lolpetprojectCSAPI.Models.MatchDataBasic;
 using lolpetprojectCSAPI.Models.MatchDataSpecific;
-using lolpetprojectCSAPI.StaticUtil;
+
 using RestSharp;
 
-namespace lolpetprojectCSAPI.RiotApiServices
+namespace lolpetprojectCSAPI.Services.RiotApiServices
 {
     public class MatchSpecificRepository : IMatchSpecificRepository
     {
 
-        private readonly string _apiKey = Util.GetApiKey();
+        private IApiKeyProvider _apiKeyProvider;
+
+        public MatchSpecificRepository(IApiKeyProvider apiKeyProvider)
+        {
+            _apiKeyProvider = apiKeyProvider;
+        }
         
         public async Task<MatchSpecific> GetMatchSpecificDataAsync(long matchId)
         {
             
             try
             {
-                var client = new RestClient($"https://euw1.api.riotgames.com/lol/match/v4/matches/{matchId}?api_key={_apiKey}");
+                var client = new RestClient($"https://euw1.api.riotgames.com/lol/match/v4/matches/{matchId}?api_key={_apiKeyProvider.GetApiKey()}");
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = await client.ExecuteAsync(request);
 

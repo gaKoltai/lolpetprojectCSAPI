@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using lolpetprojectCSAPI.Interfaces;
-using lolpetprojectCSAPI.RiotApiServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lolpetprojectCSAPI.Controllers
