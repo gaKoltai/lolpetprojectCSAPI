@@ -20,7 +20,7 @@
 - Please download the front-end page from (and follow readme.md)  : https://github.com/gaKoltai/lolpetproject
 - Make sure your device has the latest versions of [.NET Core installed](https://dotnet.microsoft.com/download).
 - Make sure the front-end server is making calls to the port the API is being hosted on.
-- Change the API key in StaticUtil/Util.cs to your own key and dont forget to UPDATE THIS EVERY 24 hours. Get your own API key at the [RIOT Games Developer Portal](https://developer.riotgames.com/).
+- Change the API key in services/ApiKeyProvider.cs to your own key and dont forget to UPDATE THIS EVERY 24 hours. Get your own API key at the [RIOT Games Developer Portal](https://developer.riotgames.com/).
 
 
 ## Technologies used:
