@@ -20,7 +20,7 @@ namespace lolpetprojectCSAPI.Controllers
         {
             var summoner = await _repository.GetSummonerDataAsync(name);
 
-            if (summoner == null) return BadRequest();
+            if (summoner == null) return NotFound();
 
             return Ok(summoner);
         }
