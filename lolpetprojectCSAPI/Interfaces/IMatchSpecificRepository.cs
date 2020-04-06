@@ -5,6 +5,6 @@ namespace lolpetprojectCSAPI.Interfaces
 {
     public interface IMatchSpecificRepository
     {
-        Task<MatchSpecific> GetMatchSpecificDataAsync(long matchId);
+        Task<MatchSpecific> GetMatchSpecificDataAsync(long matchId, string region);
     }
 }

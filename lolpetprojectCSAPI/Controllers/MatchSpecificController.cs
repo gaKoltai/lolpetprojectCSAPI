@@ -15,10 +15,10 @@ namespace lolpetprojectCSAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMatchDataById(long id)
+        [HttpGet("{region}/{id}")]
+        public async Task<IActionResult> GetMatchDataById(string region, long id)
         {
-            var matchSpecific = await _repository.GetMatchSpecificDataAsync(id);
+            var matchSpecific = await _repository.GetMatchSpecificDataAsync(id, region);
 
             if (matchSpecific == null)
             {

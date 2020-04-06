@@ -33,6 +33,7 @@ namespace lolpetprojectCSAPI
             services.AddScoped(typeof(IMatchSpecificRepository), typeof(MatchSpecificRepository));
             services.AddScoped(typeof(IQueueStatRepository), typeof(QueueStatRepository));
             services.AddScoped(typeof(IApiKeyProvider), typeof(ApiKeyProvider));
+            services.AddScoped(typeof(IApiRouter), typeof(ApiRouter));
             services.AddCors();
             services.AddControllers();
         }

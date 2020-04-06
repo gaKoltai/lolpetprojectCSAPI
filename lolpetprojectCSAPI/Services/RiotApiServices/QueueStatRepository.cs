@@ -10,18 +10,20 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
     public class QueueStatRepository: IQueueStatRepository
     {
 
-        private IApiKeyProvider _apiKeyProvider;
+        private readonly IApiKeyProvider _apiKeyProvider;
+        private readonly IApiRouter _apiRouter;
 
-        public QueueStatRepository(IApiKeyProvider apiKeyProvider)
+        public QueueStatRepository(IApiKeyProvider apiKeyProvider, IApiRouter apiRouter)
         {
             _apiKeyProvider = apiKeyProvider;
+            _apiRouter = apiRouter;
         }
         
-        public async Task<QueueStat[]> GetQueueStatsAsync(string summonerId)
+        public async Task<QueueStat[]> GetQueueStatsAsync(string summonerId, string region)
         {
             try
             {
-                var client = new RestClient($"https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" +
+                var client = new RestClient($"https://{_apiRouter.GetRegionLink(region)}.api.riotgames.com/lol/league/v4/entries/by-summoner/" +
                                             $"{summonerId}?api_key={_apiKeyProvider.GetApiKey()}");
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = await client.ExecuteAsync(request);

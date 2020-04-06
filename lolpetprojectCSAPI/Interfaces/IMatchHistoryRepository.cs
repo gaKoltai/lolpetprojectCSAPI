@@ -5,6 +5,6 @@ namespace lolpetprojectCSAPI.Interfaces
 {
     public interface IMatchHistoryRepository
     {
-        Task<MatchHistory> GetMatchHistoryAsync(string accountId, int startIndex, int endIndex);
+        Task<MatchHistory> GetMatchHistoryAsync(string accountId, int startIndex, int endIndex, string region);
     }
 }

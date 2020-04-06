@@ -5,6 +5,6 @@ namespace lolpetprojectCSAPI.Interfaces
 {
     public interface ISummonerRepository
     {
-        Task<Summoner> GetSummonerDataAsync(string name);
+        Task<Summoner> GetSummonerDataAsync(string name, string region);
     }
 }

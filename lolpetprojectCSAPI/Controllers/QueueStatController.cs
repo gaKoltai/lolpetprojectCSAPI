@@ -16,10 +16,10 @@ namespace lolpetprojectCSAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("{summonerId}")]
-        public async Task<IActionResult> GetQueueStats(string summonerId)
+        [HttpGet("{region}/{summonerId}")]
+        public async Task<IActionResult> GetQueueStats(string region, string summonerId)
         {
-            var matchSpecific = await _repository.GetQueueStatsAsync(summonerId);
+            var matchSpecific = await _repository.GetQueueStatsAsync(summonerId, region);
 
             if (matchSpecific == null)
             {

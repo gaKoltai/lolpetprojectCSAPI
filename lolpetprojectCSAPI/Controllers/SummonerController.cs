@@ -15,10 +15,10 @@ namespace lolpetprojectCSAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetSummonerByName(string name)
+        [HttpGet("{region}/{name}")]
+        public async Task<IActionResult> GetSummonerByName(string region, string name)
         {
-            var summoner = await _repository.GetSummonerDataAsync(name);
+            var summoner = await _repository.GetSummonerDataAsync(name, region);
 
             if (summoner == null) return NotFound();
 

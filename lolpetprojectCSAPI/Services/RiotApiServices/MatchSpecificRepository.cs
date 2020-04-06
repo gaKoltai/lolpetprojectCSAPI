@@ -11,19 +11,21 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
     public class MatchSpecificRepository : IMatchSpecificRepository
     {
 
-        private IApiKeyProvider _apiKeyProvider;
+        private readonly IApiKeyProvider _apiKeyProvider;
+        private readonly IApiRouter _apiRouter;
 
-        public MatchSpecificRepository(IApiKeyProvider apiKeyProvider)
+        public MatchSpecificRepository(IApiKeyProvider apiKeyProvider, IApiRouter apiRouter)
         {
             _apiKeyProvider = apiKeyProvider;
+            _apiRouter = apiRouter;
         }
         
-        public async Task<MatchSpecific> GetMatchSpecificDataAsync(long matchId)
+        public async Task<MatchSpecific> GetMatchSpecificDataAsync(long matchId, string region)
         {
             
             try
             {
-                var client = new RestClient($"https://euw1.api.riotgames.com/lol/match/v4/matches/{matchId}?api_key={_apiKeyProvider.GetApiKey()}");
+                var client = new RestClient($"https://{_apiRouter.GetRegionLink(region)}.api.riotgames.com/lol/match/v4/matches/{matchId}?api_key={_apiKeyProvider.GetApiKey()}");
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = await client.ExecuteAsync(request);
 

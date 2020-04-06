@@ -16,10 +16,10 @@ namespace lolpetprojectCSAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("{accountId}")]
-        public async Task<IActionResult> GetMatchHistory(string accountId)
+        [HttpGet("{region}/{accountId}")]
+        public async Task<IActionResult> GetMatchHistory(string region, string accountId)
         {
-            var matchHistory = await _repository.GetMatchHistoryAsync(accountId, 0, 10);
+            var matchHistory = await _repository.GetMatchHistoryAsync(accountId, 0, 10, region);
             if (matchHistory == null)
             {
                 return BadRequest();
