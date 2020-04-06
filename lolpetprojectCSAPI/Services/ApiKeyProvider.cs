@@ -4,8 +4,7 @@ namespace lolpetprojectCSAPI.Services
 {
     public class ApiKeyProvider : IApiKeyProvider
     {
-        private const string ApiKey = "RGAPI-0fb9e852-a1cf-40bd-9dc4-9dc5482369ab";
-
+        private const string ApiKey = "RGAPI-b29d6c1b-f0ad-48a6-ab3a-ce6653af9aaf";
         public string GetApiKey()
         {
             return ApiKey;
