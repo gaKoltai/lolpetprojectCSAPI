@@ -16,9 +16,9 @@ namespace lolpetprojectCSAPI.Controllers
         }
 
         [HttpGet("{region}/{id}")]
-        public async Task<IActionResult> GetMatchDataById(string region, long id)
+        public async Task<IActionResult> GetMatchDataById(string region, long id, [FromQuery] long championId)
         {
-            var matchSpecific = await _repository.GetMatchSpecificDataAsync(id, region);
+            var matchSpecific = await _repository.GetMatchSpecificDataAsync(id, region, championId);
 
             if (matchSpecific == null)
             {

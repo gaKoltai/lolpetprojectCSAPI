@@ -13,14 +13,16 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
 
         private readonly IApiKeyProvider _apiKeyProvider;
         private readonly IApiRouter _apiRouter;
+        private readonly IDataSortHelperService _dataSortHelper;
 
-        public MatchSpecificRepository(IApiKeyProvider apiKeyProvider, IApiRouter apiRouter)
+        public MatchSpecificRepository(IApiKeyProvider apiKeyProvider, IApiRouter apiRouter, IDataSortHelperService dataSortHelper)
         {
             _apiKeyProvider = apiKeyProvider;
             _apiRouter = apiRouter;
+            _dataSortHelper = dataSortHelper;
         }
         
-        public async Task<MatchSpecific> GetMatchSpecificDataAsync(long matchId, string region)
+        public async Task<SortedMatchData> GetMatchSpecificDataAsync(long matchId, string region, long championId)
         {
             
             try
@@ -32,8 +34,10 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
                 if (response.IsSuccessful)
                 {
                     var matchSpecific = JsonSerializer.Deserialize<MatchSpecific>(response.Content);
+
+                    var sortedMatchData = _dataSortHelper.SortMatchData(matchSpecific, championId);
                     
-                    return matchSpecific;
+                    return sortedMatchData;
                 }
             }
             catch (Exception exception)
