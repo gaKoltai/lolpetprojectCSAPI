@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using lolpetprojectCSAPI.Interfaces;
@@ -24,9 +25,11 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
             try
             {
                 var client = new RestClient($"https://{_apiRouter.GetRegionLink(region)}.api.riotgames.com/lol/match/v4/matchlists/" +
-                                            $"by-account/{accountId}?endIndex={endIndex}&beginIndex={startIndex}" +
+                                            $"by-account/{accountId}?endIndex={endIndex}&beginIndex={startIndex}&queue=400&queue=420&queue=440" +
                                             $"&api_key={_apiKeyProvider.GetApiKey()}");
+                
                 var request = new RestRequest(Method.GET);
+                
                 IRestResponse response = await client.ExecuteAsync(request);
 
                 if (response.IsSuccessful)
