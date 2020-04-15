@@ -23,6 +23,12 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
 
         private double CalculateKDA(long kills, long deaths, long assists)
         {
+
+            if (deaths == 0)
+            {
+                deaths += 1;
+            }
+            
             var kda = (double) (kills + assists) / deaths;
 
             return Math.Round(kda, 2);
@@ -42,7 +48,7 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
             var gameLengthInMinutes = TimeSpan.FromSeconds(gameDuration).TotalMinutes;
             var rawDmgPerMin = playerDamage / gameLengthInMinutes;
 
-            return Math.Round(rawDmgPerMin, 2);
+            return Math.Round(rawDmgPerMin);
         }
 
         private double CalculateCsPerMin(long totalCs, long gameDuration)
@@ -50,7 +56,7 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
             var gameLengthInMinutes = TimeSpan.FromSeconds(gameDuration).TotalMinutes;
             var rawCsPerMin = totalCs / gameLengthInMinutes;
 
-            return Math.Round(rawCsPerMin, 2);
+            return Math.Round(rawCsPerMin, 1);
         }
 
         private int CalculatePlayerKillParticipation(List<Participant> teams, long playerKills, long playerAssists,
@@ -148,8 +154,8 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
                 Kda= CalculateKDA(kills, deaths, assists),
                 KillParticipation = CalculatePlayerKillParticipation(matchSpecific.Participants, kills, assists, player.TeamId),
                 Kills = kills,
-                Assists = deaths,
-                Deaths = assists,
+                Assists = assists,
+                Deaths = deaths,
                 GameLength = ConvertGameDurationToMinutesAndSeconds(matchSpecific.GameDuration),
                 Win = playerStats.Win,
                 MinionsKilled = playerStats.TotalMinionsKilled,
@@ -161,7 +167,9 @@ namespace lolpetprojectCSAPI.Services.RiotApiServices
                     playerStats.TotalDamageDealtToChampions, player.TeamId),
                 
                 QueueId = matchSpecific.QueueId,
-                Role = CalculateApproximateRole(player.Timeline.Role, player.Timeline.Lane, matchSpecific.QueueId)
+                Role = CalculateApproximateRole(player.Timeline.Role, player.Timeline.Lane, matchSpecific.QueueId),
+                ChampionId = championId,
+                GameId = matchSpecific.GameId
             };
             
         }
