@@ -21,5 +21,9 @@ namespace lolpetprojectCSAPI.Models.MatchDataSpecific
         public long QueueId { get; set; }
         
         public string Role { get; set; }
+        
+        public long ChampionId { get; set; }
+
+        public long GameId { get; set; }
     }
 }
